@@ -1,3 +1,4 @@
-/**
- * Created by Student on 4/19/2017.
- */
+(function (angular) {
+    var gameModule = angular.module('bazGame', []); // game module declaration
+
+})(angular); // IIFE

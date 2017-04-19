@@ -1,5 +1,5 @@
 (function (angular) {
-    var bazAppModule = angular.module('bazApp', ['ngRoute', 'bazPeople', 'bazCourses']); // root module declaration
+    var bazAppModule = angular.module('bazApp', ['ngRoute', 'bazPeople', 'bazGame']); // root module declaration
 
     bazAppModule.config(config);
 
@@ -9,9 +9,10 @@
                 controller: 'PeopleController',
                 templateUrl: 'app/people/people-partial.html'
             })
-            .when('/courses', {
-                controller: 'CoursesController',
-                templateUrl: 'app/courses/courses-partial.html'})
+            .when('/game', {
+                controller: 'GameController',
+                templateUrl: 'app/game/game-partial.html'
+            })
             .otherwise({
                 redirectTo: '/'
             });
