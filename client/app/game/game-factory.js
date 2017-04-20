@@ -4,9 +4,15 @@
     gameModule.factory('gameFactory', GameFactory);
 
     function GameFactory($sce) {
-        var board = newBoard();
+        var players = [];
+        var currentPlayer = {};
+        var board = [];
+
+        reset();
 
         return {
+            players: players,
+            currentPlayer: currentPlayer,
             board: board,
             select: select,
             reset: reset
@@ -18,14 +24,32 @@
         }
 
         function reset() {
-            board = newBoard();
+            players.length = 0;
+            [{player: 1, name: '', symbol: 'x'}, {player: 2, name: '', symbol: 'o'}].forEach(function (item) {
+                players.push(item);
+            });
+            currentPlayer = players[0];
+
+            board.length = 0;
+            newBoard().forEach(function (item) {
+                board.push(item);
+            });
         }
 
         function newBoard() {
             return [
-                [{value: '?', display: getDisplay('?')},{value: '?', display: getDisplay('?')}, {value: '?', display: getDisplay('?')}],
-                [{value: '?', display: getDisplay('?')}, {value: '?', display: getDisplay('?')}, {value: '?', display: getDisplay('?')}],
-                [{value: '?', display: getDisplay('?')}, {value: '?', display: getDisplay('?')}, {value: '?', display: getDisplay('?')}]
+                [{value: '?', display: getDisplay('?')}, {value: '?', display: getDisplay('?')}, {
+                    value: '?',
+                    display: getDisplay('?')
+                }],
+                [{value: '?', display: getDisplay('?')}, {value: '?', display: getDisplay('?')}, {
+                    value: '?',
+                    display: getDisplay('?')
+                }],
+                [{value: '?', display: getDisplay('?')}, {value: '?', display: getDisplay('?')}, {
+                    value: '?',
+                    display: getDisplay('?')
+                }]
             ];
         }
 
