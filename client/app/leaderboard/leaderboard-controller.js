@@ -3,22 +3,60 @@
 
     leaderboardModule.controller('LeaderboardController', LeaderboardController);
 
-    function LeaderboardController($scope, LeaderboardFactory) {
-        $scope.filteredEntry = '';
-        $scope.leaderboard = LeaderboardFactory.leaderboard;
+    function LeaderboardController($http) {
+        var that = this;
 
-        $scope.add = add;
-        $scope.remove = remove;
+        this.entryName = '';
+        this.removalName = '';
+        this.leaderboard = [];
 
-        LeaderboardFactory.getData();
+        this.add = add;
+        this.remove = remove;
 
-        function add() {
-            LeaderboardFactory.add($scope.newEntry);
-            $scope.newEntryName = '';
+        getData().then(updateLeaderboard);
+
+        function getData() {
+            return $http.get('/api/leaderboard');
         }
 
-        function remove(course) {
-            LeaderboardFactory.remove(course);
+        function updateLeaderboard(response) {
+            that.leaderboard = response.data;
+        }
+
+        function resetEntryName() {
+            that.entryName = '';
+        }
+
+        function error(error) {
+            console.log(error);
+        }
+
+        function add() {
+            addData(that.entryName)
+                .then(getData)
+                .then(updateLeaderboard)
+                .then(resetEntryName)
+                .catch(error);
+        }
+
+        function addData(name) {
+            return $http.post('/api/leaderboard/add', {name: name});
+        }
+
+        function remove() {
+            removeData(that.removalName)
+                .then(getData)
+                .then(updateLeaderboard)
+                .then(resetRemovalName)
+                .catch(error);
+        }
+
+        function removeData(name) {
+            return $http.post('/api/leaderboard/remove', {name: name});
+        }
+
+        function resetRemovalName(){
+            that.removalName = '';
         }
     }
 })(angular); // IIFE

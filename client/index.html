@@ -86,12 +86,12 @@
     </div>
 </section>
 
-<section id="game" class="game_content">
-    <div ng-include="'app/game/game-partial.html'" ng-controller="GameController"></div>
+<section id="game" class="game_content" ng-controller="GameController as gc">
+    <div ng-include="'app/game/game-partial.html'"></div>
 </section>
 
-<section id="leaderboard" class="features">
-    <div ng-include="'app/leaderboard/leaderboard-partial.html'" ng-controller="LeaderboardController"></div>
+<section id="leaderboard" class="features"  ng-controller="LeaderboardController as lb">
+    <div ng-include="'app/leaderboard/leaderboard-partial.html'"></div>
 </section>
 
 <section id="contact" class="contact bg-primary">
@@ -147,7 +147,6 @@
 <!-- Application -->
 <script src="app/app.js"></script>
 <script src="app/leaderboard/leaderboard-module.js"></script>
-<script src="app/leaderboard/leaderboard-factory.js"></script>
 <script src="app/leaderboard/leaderboard-controller.js"></script>
 <script src="app/game/game-module.js"></script>
 <script src="app/game/game-factory.js"></script>

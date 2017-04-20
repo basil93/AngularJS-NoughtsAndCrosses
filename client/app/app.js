@@ -7,14 +7,17 @@
         $routeProvider
             .when('/', {
                 controller: 'GameController',
+                controllerAs: 'gc',
                 templateUrl: 'app/game/game-partial.html'
             })
             .when('/leaderboard', {
                 controller: 'LeaderboardController',
+                controllerAs: 'lb',
                 templateUrl: 'app/leaderboard/leaderboard-partial.html'
             })
             .when('/game', {
                 controller: 'GameController',
+                controllerAs: 'gc',
                 templateUrl: 'app/game/game-partial.html'
             })
             .otherwise({

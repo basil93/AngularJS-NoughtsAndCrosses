@@ -3,22 +3,24 @@
 
     gameModule.controller('GameController', GameController);
 
-    function GameController($scope, gameFactory) {
-        $scope.board = gameFactory.board;
-        $scope.isInvalidMove = false;
-        $scope.isGameOver = false;
+    function GameController(gameFactory) {
+        var that = this;
 
-        $scope.select = select;
-        $scope.reset = reset;
+        this.board = gameFactory.board;
+        this.isInvalidMove = false;
+        this.isGameOver = false;
+
+        this.select = select;
+        this.reset = reset;
 
         function select(row, column, value) {
-            if ($scope.board[row][column].value === '?') {
+            if (that.board[row][column].value === '?') {
                 gameFactory.select(row, column, value);
             } else {
                 invalidMove = true;
             }
 
-            $scope.isGameOver = checkEnd();
+            that.isGameOver = checkEnd();
         }
 
         function reset() {
@@ -30,9 +32,9 @@
         }
 
         function checkMaxedOut(){
-            for(i = 0; i < $scope.board; i++){
-                for(j = 0; j<$scope.board[i]; j++){
-                    if($scope.board[i][j].value === '?') {
+            for(i = 0; i < that.board; i++){
+                for(j = 0; j<that.board[i]; j++){
+                    if(that.board[i][j].value === '?') {
                         return false;
                     }
                 }
