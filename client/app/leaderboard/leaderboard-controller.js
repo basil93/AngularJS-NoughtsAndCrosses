@@ -10,6 +10,8 @@
         $scope.add = add;
         $scope.remove = remove;
 
+        LeaderboardFactory.getData();
+
         function add() {
             LeaderboardFactory.add($scope.newEntry);
             $scope.newEntryName = '';

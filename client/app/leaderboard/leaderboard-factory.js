@@ -3,13 +3,14 @@
 
     leaderboardModule.factory('LeaderboardFactory', LeaderboardFactory);
 
-    function LeaderboardFactory(){
-        var leaderboard = [{name:'James', wins:1}, {name:'Bob', wins:2}, {name:'Tim', wins:4}];
+    function LeaderboardFactory($http){
+        var leaderboard = [];
 
         return {
             leaderboard: leaderboard,
             add: add,
-            remove: remove
+            remove: remove,
+            getData: getData
         };
 
         function add(entry) {
@@ -23,6 +24,17 @@
                 var index = leaderboard.indexOf(entry);
                 leaderboard.splice(index, 1);
             }
+        }
+
+        function getData() {
+            $http.get('/api/leaderboard').then(function (response) {
+                leaderboard.length = 0;
+                response.data.forEach(function (item) {
+                    leaderboard.push(item);
+                })
+            }, function (err) {
+                console.warn(err);
+            });
         }
     }
 })(angular);

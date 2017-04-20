@@ -1,0 +1,50 @@
+.header {
+    position: relative;
+    width: 100%;
+    min-height: auto;
+    overflow-y: hidden;
+    background: url("../img/bg-pattern.png"), #7b4397;
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    color: white;
+}
+
+.game_board {
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    max-width: 400px;
+    margin: auto;
+    right: 0;
+    z-index: 0;
+}
+
+.game_content {
+    background-color: #14bdac;
+    padding: 10px 0;
+    perspective: 100px;
+    position: relative;
+    z-index: 0;
+}
+
+.game_cells {
+    border-spacing: 6px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 3;
+}
+
+.game_cell {
+    height: 130px;
+    padding: 8px;
+    position: relative;
+    vertical-align: top;
+    width: 130px;
+}
+
+section.contact ul.list-social li.social-linkedin a {
+    background-color: #0077b5;
+}
+section.contact ul.list-social li.social-linkedin a:hover {
+    background-color: #344e86;
+}
