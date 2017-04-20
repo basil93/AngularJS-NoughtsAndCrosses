@@ -1,13 +1,17 @@
 (function (angular) {
-    var bazAppModule = angular.module('bazApp', ['ngRoute', 'bazPeople', 'bazGame']); // root module declaration
+    var bazAppModule = angular.module('bazApp', ['ngRoute', 'bazLeaderboard', 'bazGame']); // root module declaration
 
     bazAppModule.config(config);
 
     function config($routeProvider) {
         $routeProvider
-            .when('/people', {
-                controller: 'PeopleController',
-                templateUrl: 'app/people/people-partial.html'
+            .when('/', {
+                controller: 'GameController',
+                templateUrl: 'app/game/game-partial.html'
+            })
+            .when('/leaderboard', {
+                controller: 'LeaderboardController',
+                templateUrl: 'app/leaderboard/leaderboard-partial.html'
             })
             .when('/game', {
                 controller: 'GameController',
