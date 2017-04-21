@@ -4,15 +4,23 @@
     gameModule.factory('gameFactory', GameFactory);
 
     function GameFactory($sce) {
-        var player1 = {};
-        var player2 = {};
-        var currentPlayer = {};
-        var board = [];
+        var that = this;
+        this.player1 = {};
+        this.player2 = {};
+        this.currentPlayer = {};
+
+        this.board = [];
+
+        this.isGameOver = false;
+        this.winner = {};
 
         reset();
 
         return {
-            board: board,
+            board: that.board,
+            currentPlayer: that.currentPlayer,
+            isGameOver: that.isGameOver,
+            winner: that.winner,
             setName: setName,
             select: select,
             reset: reset
@@ -20,36 +28,45 @@
 
         function setName(playerNumber, name) {
             if(playerNumber === 1) {
-                player1.name = name;
+                that.player1.name = name;
             }
             if(playerNumber === 2) {
-                player2.name = name;
+                that.player2.name = name;
             }
         }
 
         function select(row, column) {
-            board[row][column].value = currentPlayer.symbol;
-            board[row][column].display = getDisplay(currentPlayer.symbol);
-            setNextPlayer();
+            that.board[row][column].value = that.currentPlayer.symbol;
+            that.board[row][column].display = getDisplay(that.currentPlayer.symbol);
+
+            that.isGameOver = checkEnd();
+            if(that.isGameOver) {
+                that.winner = that.currentPlayer;
+            } else {
+                setNextPlayer();
+            }
         }
 
         function setNextPlayer() {
-            if(currentPlayer === player1) {
-                currentPlayer = player2;
+            if(that.currentPlayer === that.player1) {
+                that.currentPlayer = that.player2;
             } else {
-                currentPlayer = player1;
+                that.currentPlayer = that.player1;
             }
         }
 
         function reset() {
-            player1 = {name: '', symbol: 'x'};
-            player2 = {name: '', symbol: 'o'};
-            currentPlayer = player1;
+            that.player1 = {name: '', symbol: 'x'};
+            that.player2 = {name: '', symbol: 'o'};
+            that.currentPlayer = that.player1;
 
-            board.length = 0;
+            that.board.length = 0;
             newBoard().forEach(function (item) {
-                board.push(item);
+                that.board.push(item);
             });
+
+            that.isGameOver = false;
+            that.winner = {};
         }
 
         function newBoard() {
@@ -79,6 +96,21 @@
             }
 
             return $sce.trustAsHtml('empty');
+        }
+
+        function checkEnd() {
+            return checkMaxedOut();
+        }
+
+        function checkMaxedOut() {
+            for (i = 0; i < that.board.length; i++) {
+                for (j = 0; j < that.board[i].length; j++) {
+                    if (that.board[i][j].value === '?') {
+                        return false;
+                    }
+                }
+            }
+            return true;
         }
     }
 })(angular);

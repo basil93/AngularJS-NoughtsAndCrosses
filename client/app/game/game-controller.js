@@ -7,14 +7,15 @@
     function GameController(gameFactory) {
         var that = this;
 
-        this.player1 = '';
-        this.player2 = '';
+        this.player1name = '';
+        this.player2name = '';
 
         this.isPlaying = false;
 
         this.board = gameFactory.board;
         this.isInvalidMove = false;
-        this.isGameOver = false;
+        this.isGameOver = gameFactory.isGameOver;
+        this.winner = gameFactory.winner;
 
         this.start = start;
         this.select = select;
@@ -27,11 +28,11 @@
         }
 
         function setPlayer1Name() {
-            gameFactory.setName(1, that.player1);
+            gameFactory.setName(1, that.player1name);
         }
 
         function setPlayer2Name() {
-            gameFactory.setName(2, that.player2);
+            gameFactory.setName(2, that.player2name);
         }
 
         function select(row, column) {
@@ -41,34 +42,15 @@
             } else {
                 that.invalidMove = true;
             }
-
-            that.isGameOver = checkEnd();
         }
 
         function reset() {
             gameFactory.reset();
 
-            that.player1 = '';
-            that.player2 = '';
+            that.player1name = '';
+            that.player2name = '';
             that.isPlaying = false;
-            that.isGameOver = false;
             that.isInvalidMove = false;
         }
-
-        function checkEnd() {
-            return checkMaxedOut();
-        }
-
-        function checkMaxedOut() {
-            for (i = 0; i < that.board.length; i++) {
-                for (j = 0; j < that.board[i].length; j++) {
-                    if (that.board[i][j].value === '?') {
-                        return false;
-                    }
-                }
-            }
-            return true;
-        }
-
     }
 })(angular);
