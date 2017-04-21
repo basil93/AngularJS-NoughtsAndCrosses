@@ -2,14 +2,42 @@
     <div class="container">
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
-                <div class="form-group">
-                    <a class="btn btn-danger btn-xl" ng-click="gc.reset()">Reset</a>
-                </div>
+                <h2 class="section-heading">Lets Play!</h2>
+                <p>Enter your names in the boxes below and click Start!</p>
             </div>
         </div>
+        <form name="gc.playerForm">
+            <div class="row">
+                <div class="col-md-4 col-md-offset-2">
+                    <div class="form-group">
+                        <label for="player1">Player 1 (X):</label>
+                        <input ng-disabled="gc.isPlaying" type="text" name="player1" ng-model="gc.player1" required class="form-control" id="player1">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="player2">Player 2 (O):</label>
+                        <input ng-disabled="gc.isPlaying" type="text" name="player2" ng-model="gc.player2" required class="form-control" id="player2">
+                    </div>
+                </div>
+            </div>
+            <div>{{gc.isGameOver}}</div>
+            <div class="row">
+                <div class="col-md-2 col-md-offset-4">
+                    <div class="form-group">
+                        <a class="btn btn-success btn-xl" ng-disabled="gc.playerForm.$invalid || gc.isPlaying" ng-click="gc.start()">Start</a>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <a class="btn btn-danger btn-xl" ng-click="gc.reset()">Reset</a>
+                    </div>
+                </div>
+            </div>
+        </form>
     </div>
 </div>
-<div class="game_content">
+<div class="game_content" ng-show="gc.isPlaying">
     <div class="game_board">
         <svg style="opacity: 1;" viewBox="0 0 220 220">
             <path d="M108,83L6,83"
@@ -34,51 +62,51 @@
         <tbody>
         <tr>
             <td class="game_cell">
-                <a ng-click="gc.select(0,0,'x')">
+                <a ng-click="gc.select(0,0)">
                     <div ng-bind-html="gc.board[0][0].display"></div>
                 </a>
             </td>
             <td class="game_cell">
-                <a ng-click="gc.select(0,1,'o')">
+                <a ng-click="gc.select(0,1)">
                     <div ng-bind-html="gc.board[0][1].display"></div>
                 </a>
             </td>
             <td class="game_cell">
-                <a ng-click="gc.select(0,2,'x')">
+                <a ng-click="gc.select(0,2)">
                     <div ng-bind-html="gc.board[0][2].display"></div>
                 </a>
             </td>
         </tr>
         <tr>
             <td class="game_cell">
-                <a ng-click="gc.select(1,0,'x')">
+                <a ng-click="gc.select(1,0)">
                     <div ng-bind-html="gc.board[1][0].display"></div>
                 </a>
             </td>
             <td class="game_cell">
-                <a ng-click="gc.select(1,1,'x')">
+                <a ng-click="gc.select(1,1)">
                     <div ng-bind-html="gc.board[1][1].display"></div>
                 </a>
             </td>
             <td class="game_cell">
-                <a ng-click="gc.select(1,2,'x')">
+                <a ng-click="gc.select(1,2)">
                     <div ng-bind-html="gc.board[1][2].display"></div>
                 </a>
             </td>
         </tr>
         <tr>
             <td class="game_cell">
-                <a ng-click="gc.select(2,0,'x')">
+                <a ng-click="gc.select(2,0)">
                     <div ng-bind-html="gc.board[2][0].display"></div>
                 </a>
             </td>
             <td class="game_cell">
-                <a ng-click="gc.select(2,1,'x')">
+                <a ng-click="gc.select(2,1)">
                     <div ng-bind-html="gc.board[2][1].display"></div>
                 </a>
             </td>
             <td class="game_cell">
-                <a ng-click="gc.select(2,2,'x')">
+                <a ng-click="gc.select(2,2)">
                     <div ng-bind-html="gc.board[2][2].display"></div>
                 </a>
             </td>

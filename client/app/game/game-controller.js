@@ -3,21 +3,43 @@
 
     gameModule.controller('GameController', GameController);
 
+    GameController.$inject = ['gameFactory'];
     function GameController(gameFactory) {
         var that = this;
+
+        this.player1 = '';
+        this.player2 = '';
+
+        this.isPlaying = false;
 
         this.board = gameFactory.board;
         this.isInvalidMove = false;
         this.isGameOver = false;
 
+        this.start = start;
         this.select = select;
         this.reset = reset;
 
-        function select(row, column, value) {
+        function start() {
+            setPlayer1Name();
+            setPlayer2Name();
+            that.isPlaying = true;
+        }
+
+        function setPlayer1Name() {
+            gameFactory.setName(1, that.player1);
+        }
+
+        function setPlayer2Name() {
+            gameFactory.setName(2, that.player2);
+        }
+
+        function select(row, column) {
             if (that.board[row][column].value === '?') {
-                gameFactory.select(row, column, value);
+                gameFactory.select(row, column);
+                that.invalidMove = false;
             } else {
-                invalidMove = true;
+                that.invalidMove = true;
             }
 
             that.isGameOver = checkEnd();
@@ -25,16 +47,22 @@
 
         function reset() {
             gameFactory.reset();
+
+            that.player1 = '';
+            that.player2 = '';
+            that.isPlaying = false;
+            that.isGameOver = false;
+            that.isInvalidMove = false;
         }
 
-        function checkEnd(){
+        function checkEnd() {
             return checkMaxedOut();
         }
 
-        function checkMaxedOut(){
-            for(i = 0; i < that.board; i++){
-                for(j = 0; j<that.board[i]; j++){
-                    if(that.board[i][j].value === '?') {
+        function checkMaxedOut() {
+            for (i = 0; i < that.board.length; i++) {
+                for (j = 0; j < that.board[i].length; j++) {
+                    if (that.board[i][j].value === '?') {
                         return false;
                     }
                 }

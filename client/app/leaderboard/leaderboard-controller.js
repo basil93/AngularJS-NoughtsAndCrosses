@@ -3,6 +3,7 @@
 
     leaderboardModule.controller('LeaderboardController', LeaderboardController);
 
+    LeaderboardController.$inject = ['$http'];
     function LeaderboardController($http) {
         var that = this;
 

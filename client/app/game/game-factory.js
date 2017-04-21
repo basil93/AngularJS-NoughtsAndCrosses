@@ -4,31 +4,47 @@
     gameModule.factory('gameFactory', GameFactory);
 
     function GameFactory($sce) {
-        var players = [];
+        var player1 = {};
+        var player2 = {};
         var currentPlayer = {};
         var board = [];
 
         reset();
 
         return {
-            players: players,
-            currentPlayer: currentPlayer,
             board: board,
+            setName: setName,
             select: select,
             reset: reset
         };
 
-        function select(row, column, value) {
-            board[row][column].value = value;
-            board[row][column].display = getDisplay(value);
+        function setName(playerNumber, name) {
+            if(playerNumber === 1) {
+                player1.name = name;
+            }
+            if(playerNumber === 2) {
+                player2.name = name;
+            }
+        }
+
+        function select(row, column) {
+            board[row][column].value = currentPlayer.symbol;
+            board[row][column].display = getDisplay(currentPlayer.symbol);
+            setNextPlayer();
+        }
+
+        function setNextPlayer() {
+            if(currentPlayer === player1) {
+                currentPlayer = player2;
+            } else {
+                currentPlayer = player1;
+            }
         }
 
         function reset() {
-            players.length = 0;
-            [{player: 1, name: '', symbol: 'x'}, {player: 2, name: '', symbol: 'o'}].forEach(function (item) {
-                players.push(item);
-            });
-            currentPlayer = players[0];
+            player1 = {name: '', symbol: 'x'};
+            player2 = {name: '', symbol: 'o'};
+            currentPlayer = player1;
 
             board.length = 0;
             newBoard().forEach(function (item) {

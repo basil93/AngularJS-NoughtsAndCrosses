@@ -8,6 +8,10 @@
     color: white;
 }
 
+.game {
+    background-color: #14bdac;
+}
+
 .game_board {
     height: 100%;
     left: 0;
@@ -20,7 +24,6 @@
 }
 
 .game_content {
-    background-color: #14bdac;
     padding: 10px 0;
     perspective: 100px;
     position: relative;
